@@ -1,15 +1,20 @@
-import spacy
+import re
 
-nlp = spacy.load("en_core_web_sm")
+STOPWORDS = {
+    "the", "a", "an", "and", "or", "but", "if", "to", "of",
+    "in", "on", "at", "for", "with", "is", "are", "was",
+    "were", "be", "been", "being", "i", "you", "he", "she",
+    "it", "we", "they", "my", "your", "our", "their"
+}
 
 
 def extract_keywords(text):
-    doc = nlp(text)
+    words = re.findall(r"\b[a-zA-Z]{3,}\b", text.lower())
 
     keywords = []
 
-    for token in doc:
-        if token.pos_ in ["NOUN", "PROPN"]:
-            keywords.append(token.text)
+    for word in words:
+        if word not in STOPWORDS and word not in keywords:
+            keywords.append(word)
 
-    return list(set(keywords))
+    return keywords

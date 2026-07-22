@@ -5,12 +5,25 @@ from .emotion import detect_emotion
 
 class StoryAI:
 
+    EMOTION_MAP = {
+        "positive": "Love",
+        "negative": "Sad",
+        "motivation": "Motivation",
+    }
+
     @staticmethod
     def analyze(text):
 
         language = detect_language(text)
 
-        emotion = detect_emotion(text)
+        emotion_result = detect_emotion(text)
+
+        detected_emotion = emotion_result["emotion"]
+
+        emotion = StoryAI.EMOTION_MAP.get(
+            detected_emotion,
+            detected_emotion,
+        )
 
         keywords = extract_keywords(text)
 
@@ -19,4 +32,3 @@ class StoryAI:
             "emotion": emotion,
             "keywords": keywords,
         }
-        

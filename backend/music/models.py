@@ -45,9 +45,23 @@ class Song(models.Model):
         related_name="songs"
     )
 
-    duration = models.PositiveIntegerField()
+    album = models.CharField(
+        max_length=200,
+        blank=True
+    )
 
-    mood = models.CharField(max_length=100)
+    release_year = models.PositiveIntegerField(
+        blank=True,
+        null=True
+    )
+
+    duration = models.PositiveIntegerField(
+        help_text="Duration in seconds"
+    )
+
+    mood = models.CharField(
+        max_length=100
+    )
 
     spotify_url = models.URLField(
         blank=True,
@@ -59,17 +73,39 @@ class Song(models.Model):
         null=True
     )
 
+    youtube_video_id = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text="Example: dQw4w9WgXcQ"
+    )
+
     album_cover = models.URLField(
         blank=True,
         null=True
     )
 
     popularity = models.IntegerField(
-        default=0
+        default=50
     )
+
+    is_active = models.BooleanField(
+        default=True
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        ordering = ["-popularity", "title"]
 
     def __str__(self):
         return self.title
+
 
 class Playlist(models.Model):
 
@@ -80,14 +116,47 @@ class Playlist(models.Model):
 
     story = models.ForeignKey(
         "stories.Story",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
     )
 
-    title = models.CharField(max_length=200)
+    title = models.CharField(
+        max_length=200
+    )
 
-    songs = models.ManyToManyField(Song)
+    songs = models.ManyToManyField(
+        Song
+    )
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
         return self.title
+class ListeningHistory(models.Model):
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="listening_history"
+    )
+
+    song = models.ForeignKey(
+        Song,
+        on_delete=models.CASCADE,
+        related_name="history"
+    )
+
+    listened_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    duration_played = models.PositiveIntegerField(
+        default=0,
+        help_text="Seconds listened"
+    )
+
+    def __str__(self):
+        return f"{self.user.username} - {self.song.title}"

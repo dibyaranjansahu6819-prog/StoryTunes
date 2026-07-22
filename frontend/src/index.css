@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+/* -----------------------------
+   StoryTunes Design System v2
+------------------------------*/
+
+:root {
+  --primary: #7c3aed;
+  --primary-hover: #6d28d9;
+
+  --background: #020617;
+  --surface: #0f172a;
+  --surface-light: #1e293b;
+
+  --border: #334155;
+
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  --radius: 18px;
+
+  --shadow:
+    0 8px 30px rgba(0,0,0,.45);
+
+  --transition: .25s ease;
+}
+
+/* -----------------------------
+   Reset
+------------------------------*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:
+        radial-gradient(circle at top right,#312e81 0%,#020617 45%);
+
+    color:var(--text);
+
+    font-family:
+        Inter,
+        system-ui,
+        sans-serif;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    -webkit-font-smoothing:antialiased;
+
+}
+
+/* -----------------------------
+   Scrollbar
+------------------------------*/
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#020617;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#4c1d95;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#6d28d9;
+
+}
+
+/* -----------------------------
+   Buttons
+------------------------------*/
+
+button{
+
+    transition:all .25s ease;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* -----------------------------
+   Inputs
+------------------------------*/
+
+input,
+textarea{
+
+    outline:none;
+
+    border:none;
+
+    transition:.25s ease;
+
+}
+
+input:focus,
+textarea:focus{
+
+    box-shadow:
+        0 0 0 3px rgba(124,58,237,.35);
+
+}
+
+/* -----------------------------
+   Cards
+------------------------------*/
+
+.story-card{
+
+    background:rgba(15,23,42,.82);
+
+    backdrop-filter:blur(16px);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:18px;
+
+    box-shadow:var(--shadow);
+
+    transition:.25s ease;
+
+}
+
+.story-card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:#7c3aed;
+
+}
+
+/* -----------------------------
+   Glass Effect
+------------------------------*/
+
+.glass{
+
+    background:rgba(15,23,42,.55);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+/* -----------------------------
+   Fade Animation
+------------------------------*/
+
+.fade-up{
+
+    animation:fadeUp .5s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(18px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* -----------------------------
+   Gradient Text
+------------------------------*/
+
+.gradient-text{
+
+    background:
+        linear-gradient(
+            90deg,
+            #8b5cf6,
+            #3b82f6
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+/* -----------------------------
+   Selection
+------------------------------*/
+
+::selection{
+
+    background:#7c3aed;
+
+    color:white;
+
+}
